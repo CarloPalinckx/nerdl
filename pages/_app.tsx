@@ -1,19 +1,78 @@
-import App, { Container } from 'next/app'
-import React from 'react'
-import withApolloClient from '../src/lib/with-apollo-client'
-import { ApolloProvider } from 'react-apollo'
+import App, { Container } from 'next/app';
+import React from 'react';
+import withApolloClient from '../src/lib/with-apollo-client';
+import { ApolloProvider } from 'react-apollo';
+import Head from 'next/head';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+        display: block;
+    }
+    body {
+        line-height: 1;
+    }
+    ol, ul {
+        list-style: none;
+    }
+    blockquote, q {
+        quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+`;
 
 class MyApp extends App<any> {
-  render () {
-    const { Component, pageProps, apolloClient } = this.props
-    return (
-      <Container>
-        <ApolloProvider client={apolloClient}>
-          <Component {...pageProps} />
-        </ApolloProvider>
-      </Container>
-    )
-  }
+    render() {
+        const { Component, pageProps, apolloClient } = this.props;
+        return (
+            <Container>
+                <GlobalStyle />
+                <ApolloProvider client={apolloClient}>
+                    <Head>
+                        <link
+                            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"
+                            rel="stylesheet"
+                        />
+                    </Head>
+                    <Component {...pageProps} />
+                </ApolloProvider>
+            </Container>
+        );
+    }
 }
 
-export default withApolloClient(MyApp)
+export default withApolloClient(MyApp);
