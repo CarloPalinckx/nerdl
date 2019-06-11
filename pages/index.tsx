@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import Button from '../src/components/Button';
+import Nav from '../src/components/Nav';
 import Heading from '../src/components/Heading';
 import Post from '../src/components/Post';
 import Page from '../src/components/Page';
-import Link from 'next/link';
 import { Separated } from '@myonlinestore/bricks';
+import { Plus } from 'react-feather';
+import Link from 'next/link';
 
 const Home: FC = () => {
     return (
@@ -15,9 +16,11 @@ const Home: FC = () => {
                 <Post title="post 2" />
                 <Post title="post 3" />
             </Separated>
-            <Link href="/add">
-                <Button>Add a post</Button>
-            </Link>
+            <Nav>
+                <Link href="/add">
+                    <Plus color="#fff" />
+                </Link>
+            </Nav>
         </Page>
     );
 };
